@@ -2,9 +2,9 @@
 
 namespace MetaRush\DataMapper\Adapters;
 
-interface AdapterInterface;
+interface AdapterInterface
 {
-	public function create();
+	public function create(string $table, array $data);
 
 	public function findOne();
 
