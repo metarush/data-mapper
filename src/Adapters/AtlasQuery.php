@@ -41,9 +41,13 @@ class AtlasQuery implements AdapterInterface
         return $select->columns('*')->from($table)->whereEquals($where)->fetchAll();
     }
 
-    public function update()
+    public function update(string $table, ? array $where, array $set) : void
     {
+        $update = Update::new ($this->pdo);
 
+        $where = $where ?? [];
+
+        $update->table($table)->columns($set)->whereEquals($where)->perform();
     }
 
     public function delete()
