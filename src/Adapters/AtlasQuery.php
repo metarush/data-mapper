@@ -17,7 +17,7 @@ class AtlasQuery implements AdapterInterface
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}
 
-    public function create(string $table, array $data)
+    public function create(string $table, array $data): int
     {
          $insert = Insert::new($this->pdo);
          $insert->into($table)->columns($data)->perform();

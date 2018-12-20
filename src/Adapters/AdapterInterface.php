@@ -4,7 +4,14 @@ namespace MetaRush\DataMapper\Adapters;
 
 interface AdapterInterface
 {
-	public function create(string $table, array $data);
+    /**
+     * Creates a new record in a table
+     *
+     * @param  string $table Name of table to insert to
+     * @param  array  $data  Column-value pair of the data to insert
+     * @return int The last insert id
+     */
+	public function create(string $table, array $data): int;
 
 	public function findOne();
 
