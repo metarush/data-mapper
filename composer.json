@@ -16,5 +16,8 @@
     },
     "require": {
         "atlas/query": "^1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
     }
 }
