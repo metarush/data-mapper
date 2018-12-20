@@ -32,9 +32,13 @@ class AtlasQuery implements AdapterInterface
         return $select->columns('*')->from($table)->whereEquals($where)->fetchOne();
     }
 
-    public function findAll()
+    public function findAll(string $table,  ? array $where) : array
     {
+        $select = Select::new ($this->pdo);
 
+        $where = $where ?? [];
+
+        return $select->columns('*')->from($table)->whereEquals($where)->fetchAll();
     }
 
     public function update()

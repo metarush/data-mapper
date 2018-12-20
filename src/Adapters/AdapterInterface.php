@@ -15,7 +15,7 @@ interface AdapterInterface
 
     public function findOne(string $table, array $where):  ? array;
 
-    public function findAll();
+    public function findAll(string $table, array $where) : array;
 
     public function update();
 
