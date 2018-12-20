@@ -1,0 +1,5 @@
+{
+    "require": {
+        "atlas/query": "^1.2"
+    }
+}
