@@ -9,7 +9,7 @@ interface AdapterInterface
      *
      * @param  string $table Name of table to insert to
      * @param  array  $data  Column-value pair of the data to insert
-     * @return int The last insert id
+     * @return int 	         The last insert id
      */
 	public function create(string $table, array $data): int;
 
