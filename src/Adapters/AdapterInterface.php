@@ -13,7 +13,7 @@ interface AdapterInterface
      */
     public function create(string $table, array $data): int;
 
-    public function findOne();
+    public function findOne(string $table, array $where):  ? array;
 
     public function findAll();
 
