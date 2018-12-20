@@ -6,7 +6,7 @@ class DataMapper
 {
     private $adapter;
 
-    public function __construct ($adapter)
+    public function __construct (Adapters\AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
     }

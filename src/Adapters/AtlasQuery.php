@@ -11,7 +11,7 @@ class AtlasQuery implements AdapterInterface
 {
 	private $pdo;
 
-	public function __construct($dsn, $dbUsername, $dbPassword)
+	public function __construct(string $dsn, ?string $dbUsername, ?string $dbPassword)
 	{
         $this->pdo = new \PDO($dsn, $dbUsername, $dbPassword);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
