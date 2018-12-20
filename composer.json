@@ -1,4 +1,19 @@
 {
+    "name": "metarush/data-mapper",
+    "description": "Generic data mapper that can sit between repositories and database",
+    "license": "MIT",
+    "keywords": ["php", "data mapper", "pdo"],
+    "authors": [
+        {
+            "name": "Zak W",
+            "email": "zkwbbr@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MetaRush\\DataMapper\\": "src"
+        }
+    },
     "require": {
         "atlas/query": "^1.2"
     }

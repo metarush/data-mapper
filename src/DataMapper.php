@@ -8,31 +8,6 @@ class DataMapper
 
     public function __construct (AdapterInterface $adapter)
     {
-        $this->adapter = $adapter;
-    }
-
-    public function create()
-    {
-
-    }
-
-    public function findOne()
-    {
-
-    }
-
-    public function findAll()
-    {
-
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-
+        return $adapter;
     }
 }

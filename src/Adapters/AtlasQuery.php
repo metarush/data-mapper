@@ -14,7 +14,7 @@ class AtlasQuery implements AdapterInterface
 
     public function create(string $table, array $data)
     {
-
+        return Insert::new($this->pdo)->into($table)->columns($data)->perform()->getLastInsertId();
     }
 
     public function findOne()
