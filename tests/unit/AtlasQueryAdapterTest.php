@@ -15,10 +15,19 @@ class AtlasQueryAdapterTest extends TestCase
         $this->dataMapper = new DataMapper($adapter);
     }
 
-    public function testCreateNewRecord()
+    public function testCreate()
     {
-        $result = $this->dataMapper->create('Users', ['firstName' => 'Meta', 'lastName' => 'Rush']);
+        $insertId = $this->dataMapper->create('Users', ['firstName' => 'Meta', 'lastName' => 'Rush']);
 
-        $this->assertInternalType('integer', $result);
+        $this->assertInternalType('integer', $insertId);
+    }
+
+    public function testFindOne()
+    {
+        $row = $this->dataMapper->findOne('Users', ['firstName' => 'Meta']);
+
+        $this->assertInternalType('array', $row);
+
+        $this->assertEquals('Meta', $row['firstName']);
     }
 }

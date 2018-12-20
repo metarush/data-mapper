@@ -6,7 +6,7 @@ class DataMapper implements Adapters\AdapterInterface
 {
     private $adapter;
 
-    public function __construct (Adapters\AdapterInterface $adapter)
+    public function __construct(Adapters\AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
     }
@@ -16,9 +16,9 @@ class DataMapper implements Adapters\AdapterInterface
         return $this->adapter->create($table, $data);
     }
 
-    public function findOne()
+    public function findOne(string $table, array $where):  ? array
     {
-
+        return $this->adapter->findOne($table, $where);
     }
 
     public function findAll()

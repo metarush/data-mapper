@@ -25,9 +25,11 @@ class AtlasQuery implements AdapterInterface
         return $insert->getLastInsertId();
     }
 
-    public function findOne()
+    public function findOne(string $table, array $where) :  ? array
     {
+        $select = Select::new ($this->pdo);
 
+        return $select->columns('*')->from($table)->whereEquals($where)->fetchOne();
     }
 
     public function findAll()
