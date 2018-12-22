@@ -58,8 +58,8 @@ class AtlasQueryAdapterTest extends TestCase
     public function testUpdateWithWhere()
     {
         $where = ['firstName' => 'John'];
-        $set = ['firstName' => 'Jane'];
-        $this->dataMapper->update($this->usersTable, $where, $set);
+        $data = ['firstName' => 'Jane'];
+        $this->dataMapper->update($this->usersTable, $data, $where);
 
         $row = $this->dataMapper->findOne($this->usersTable, ['firstName' => 'Jane']);
 
@@ -68,8 +68,8 @@ class AtlasQueryAdapterTest extends TestCase
 
     public function testUpdateWithoutWhere()
     {
-        $set = ['firstName' => 'Jane'];
-        $this->dataMapper->update($this->usersTable, null, $set);
+        $data = ['firstName' => 'Jane'];
+        $this->dataMapper->update($this->usersTable, $data);
 
         $row = $this->dataMapper->findOne($this->usersTable, ['firstName' => 'Jane']);
 

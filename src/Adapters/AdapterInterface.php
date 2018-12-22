@@ -17,7 +17,7 @@ interface AdapterInterface
 
     public function findAll(string $table, array $where) : array;
 
-    public function update(string $table,  ? array $where, array $set) : void;
+    public function update(string $table,  array $data, ? array $where = null) : void;
 
     public function delete();
 }

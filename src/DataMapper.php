@@ -26,9 +26,9 @@ class DataMapper implements Adapters\AdapterInterface
         return $this->adapter->findAll($table, $where);
     }
 
-    public function update(string $table,  ? array $where, array $set) : void
+    public function update(string $table, array $data, ? array $where = null) : void
     {
-        $this->adapter->update($table, $where, $set);
+        $this->adapter->update($table, $data, $where);
     }
 
     public function delete()
