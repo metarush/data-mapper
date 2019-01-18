@@ -4,6 +4,7 @@ namespace MetaRush\DataMapper\Adapters;
 
 interface AdapterInterface
 {
+
     /**
      * Creates a new record in a table
      *
@@ -13,11 +14,11 @@ interface AdapterInterface
      */
     public function create(string $table, array $data): int;
 
-    public function findOne(string $table, array $where):  ? array;
+    public function findOne(string $table, array $where): ?array;
 
-    public function findAll(string $table, array $where) : array;
+    public function findAll(string $table, ?array $where): array;
 
-    public function update(string $table,  array $data, ? array $where) : void;
+    public function update(string $table, array $data, ?array $where): void;
 
-    public function delete();
+    public function delete(string $table, ?array $where): void;
 }

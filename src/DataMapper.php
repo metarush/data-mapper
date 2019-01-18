@@ -16,23 +16,23 @@ class DataMapper implements Adapters\AdapterInterface
         return $this->adapter->create($table, $data);
     }
 
-    public function findOne(string $table, array $where):  ? array
+    public function findOne(string $table, array $where): ?array
     {
         return $this->adapter->findOne($table, $where);
     }
 
-    public function findAll(string $table,  ? array $where) : array
+    public function findAll(string $table, ?array $where = null): array
     {
         return $this->adapter->findAll($table, $where);
     }
 
-    public function update(string $table, array $data, ? array $where = null) : void
+    public function update(string $table, array $data, ?array $where = null): void
     {
         $this->adapter->update($table, $data, $where);
     }
 
-    public function delete()
+    public function delete(string $table, ?array $where = null): void
     {
-
+        $this->adapter->delete($table, $where);
     }
 }
