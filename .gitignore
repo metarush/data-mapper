@@ -3,5 +3,6 @@ composer.lock
 phpunit.xml
 vendor/
 public/
+resources/docker/
 nbproject/
-/nbproject/private/
+nbproject/private/
