@@ -2,10 +2,10 @@
 
 namespace MetaRush\DataMapper\Adapters;
 
-use Atlas\Query\Delete;
 use Atlas\Query\Insert;
 use Atlas\Query\Select;
 use Atlas\Query\Update;
+use Atlas\Query\Delete;
 
 class AtlasQuery implements AdapterInterface
 {
