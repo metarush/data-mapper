@@ -10,20 +10,61 @@ class AtlasQueryAdapterTest extends TestCase
 {
     private $dataMapper;
     private $usersTable;
+    private $pdo;
+    private $dbFile;
 
     public function setUp()
     {
-        $dsn = 'sqlite:' . __DIR__ . '/test.db';
+        $this->dbFile = __DIR__ . '/test.db';
+        $this->usersTable = 'Users';
+
+        $dsn = 'sqlite:' . $this->dbFile;
+
+        // create test db if doesn't exist yet
+        if (!file_exists($this->dbFile)) {
+
+            $this->pdo = new \PDO($dsn);
+            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $this->pdo->query('
+                CREATE TABLE `' . $this->usersTable . '` (
+                `id`        INTEGER PRIMARY KEY AUTOINCREMENT,
+                `firstName`	TEXT,
+                `lastName`	TEXT
+            )');
+        }
+
         $adapter = new AtlasQuery($dsn, null, null);
         $this->dataMapper = new DataMapper($adapter);
-        $this->usersTable = 'Users';
+
+        $this->seedTestData();
+    }
+
+    public function tearDown()
+    {
+        // close the DB connections so unlink will work
+        unset($this->dataMapper);
+        unset($this->pdo);
+
+        if (file_exists($this->dbFile))
+            unlink($this->dbFile);
+    }
+
+    public function seedTestData()
+    {
+        $data = [
+            ['firstName' => 'Foo', 'lastName' => 'Bar'],
+            ['firstName' => 'Jane', 'lastName' => 'Doe'],
+            ['firstName' => 'John', 'lastName' => 'Doe']
+        ];
+
+        foreach ($data as $v)
+            $this->dataMapper->create($this->usersTable, $v);
     }
 
     public function testCreate()
     {
-        $insertId = $this->dataMapper->create($this->usersTable, ['firstName' => 'Foo', 'lastName' => 'Bar']);
-        $insertId = $this->dataMapper->create($this->usersTable, ['firstName' => 'Jane', 'lastName' => 'Doe']);
-        $insertId = $this->dataMapper->create($this->usersTable, ['firstName' => 'John', 'lastName' => 'Doe']);
+        $insertId = $this->dataMapper->create($this->usersTable, ['firstName' => 'Quz', 'lastName' => 'Test']);
 
         $this->assertInternalType('integer', $insertId);
     }
@@ -90,8 +131,6 @@ class AtlasQueryAdapterTest extends TestCase
 
     public function testDeleteWithoutWhere()
     {
-        $this->testCreate();
-
         $this->dataMapper->delete($this->usersTable);
 
         $row = $this->dataMapper->findAll($this->usersTable);
