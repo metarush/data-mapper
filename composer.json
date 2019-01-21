@@ -1,12 +1,17 @@
 {
     "name": "metarush/data-mapper",
+    "type": "library",
     "description": "A generic data mapper library that can act as a layer between database and repositories/services.",
+    "keywords": [
+        "php",
+        "data mapper",
+        "pdo"
+    ],
     "license": "MIT",
-    "keywords": ["php", "data mapper", "pdo"],
     "authors": [
         {
-            "name": "Zak W",
-            "email": "zkwbbr@gmail.com"
+            "name": "metarush/data-mapper contributors",
+            "homepage": "https://github.com/metarush/data-mapper/graphs/contributors"
         }
     ],
     "autoload": {
@@ -15,6 +20,7 @@
         }
     },
     "require": {
+        "php": ">=7.1",
         "atlas/query": "^1.2"
     },
     "require-dev": {
