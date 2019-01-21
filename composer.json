@@ -1,6 +1,6 @@
 {
     "name": "metarush/data-mapper",
-    "description": "Generic data mapper that can sit between repositories and database",
+    "description": "A generic data mapper library that can act as a layer between database and repositories/services.",
     "license": "MIT",
     "keywords": ["php", "data mapper", "pdo"],
     "authors": [
