@@ -46,7 +46,7 @@ A generic data mapper library that can act as a layer between database and repos
     // find records where column 'col' = 'foo'
     $dM->findAll($table, ['col' => 'foo']);
 
-## Update record
+### Update record
 
     $data = ['col1' => 'bar'];
     $where = ['col2' => 'foo'];
