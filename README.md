@@ -38,7 +38,7 @@ A generic data mapper library that can act as a layer between database and repos
     // find 'foo' in column 'col'
     $dM->findOne($table, ['col' => 'foo']);
 
-### Find all record
+### Find all records
 
     // find all records
     $dM->findAll($table);
