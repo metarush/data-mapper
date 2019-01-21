@@ -52,6 +52,11 @@ A generic data mapper library that can act as a layer between database and repos
     $where = ['col2' => 'foo'];
     $dM->update($table, $data, $where);
 
+### Delete record
+
+    $where = ['col1' => 'foo'];
+    $dM->delete($table, $where);
+
 ---
 
 ## Current adapters
