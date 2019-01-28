@@ -17,6 +17,9 @@ class AtlasQuery implements AdapterInterface
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(string $table, array $data): int
     {
         $insert = Insert::new($this->pdo);
@@ -25,6 +28,9 @@ class AtlasQuery implements AdapterInterface
         return $insert->getLastInsertId();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findOne(string $table, array $where): ?array
     {
         $select = Select::new($this->pdo);
@@ -32,6 +38,9 @@ class AtlasQuery implements AdapterInterface
         return $select->columns('*')->from($table)->whereEquals($where)->fetchOne();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findAll(string $table, ?array $where = null): array
     {
         $select = Select::new($this->pdo);
@@ -41,6 +50,9 @@ class AtlasQuery implements AdapterInterface
         return $select->columns('*')->from($table)->whereEquals($where)->fetchAll();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function update(string $table, array $data, ?array $where = null): void
     {
         $update = Update::new($this->pdo);
@@ -50,6 +62,9 @@ class AtlasQuery implements AdapterInterface
         $update->table($table)->columns($data)->whereEquals($where)->perform();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function delete(string $table, ?array $where = null): void
     {
         $delete = Delete::new($this->pdo);
