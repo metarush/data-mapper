@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AtlasQueryAdapterTest extends TestCase
 {
-    private $dataMapper;
+    private $mapper;
     private $usersTable;
     private $pdo;
     private $dbFile;
@@ -30,12 +30,13 @@ class AtlasQueryAdapterTest extends TestCase
                 CREATE TABLE `' . $this->usersTable . '` (
                 `id`        INTEGER PRIMARY KEY AUTOINCREMENT,
                 `firstName`	TEXT,
-                `lastName`	TEXT
+                `lastName`	TEXT,
+                `age`       INTEGER
             )');
         }
 
         $adapter = new AtlasQuery($dsn, null, null);
-        $this->dataMapper = new DataMapper($adapter);
+        $this->mapper = new DataMapper($adapter);
 
         $this->seedTestData();
     }
@@ -43,7 +44,7 @@ class AtlasQueryAdapterTest extends TestCase
     public function tearDown()
     {
         // close the DB connections so unlink will work
-        unset($this->dataMapper);
+        unset($this->mapper);
         unset($this->pdo);
 
         if (file_exists($this->dbFile))
@@ -53,25 +54,25 @@ class AtlasQueryAdapterTest extends TestCase
     public function seedTestData()
     {
         $data = [
-            ['firstName' => 'Foo', 'lastName' => 'Bar'],
-            ['firstName' => 'Jane', 'lastName' => 'Doe'],
-            ['firstName' => 'John', 'lastName' => 'Doe']
+            ['firstName' => 'Foo', 'lastName' => 'Bar', 'age' => 20],
+            ['firstName' => 'Jane', 'lastName' => 'Doe', 'age' => 30],
+            ['firstName' => 'John', 'lastName' => 'Doe', 'age' => 40]
         ];
 
         foreach ($data as $v)
-            $this->dataMapper->create($this->usersTable, $v);
+            $this->mapper->create($this->usersTable, $v);
     }
 
     public function testCreate()
     {
-        $insertId = $this->dataMapper->create($this->usersTable, ['firstName' => 'Quz', 'lastName' => 'Test']);
+        $insertId = $this->mapper->create($this->usersTable, ['firstName' => 'Quz', 'lastName' => 'Test']);
 
         $this->assertInternalType('integer', $insertId);
     }
 
     public function testFindOne()
     {
-        $row = $this->dataMapper->findOne($this->usersTable, ['firstName' => 'Foo']);
+        $row = $this->mapper->findOne($this->usersTable, ['firstName' => 'Foo']);
 
         $this->assertInternalType('array', $row);
 
@@ -80,16 +81,31 @@ class AtlasQueryAdapterTest extends TestCase
 
     public function testFindAllWithWhere()
     {
-        $rows = $this->dataMapper->findAll($this->usersTable, ['firstName' => 'John']);
+        $rows = $this->mapper->findAll($this->usersTable, ['firstName' => 'John']);
 
         $this->assertInternalType('array', $rows);
 
         $this->assertEquals('John', $rows[0]['firstName']);
     }
 
+    public function testFindAllUsingOtherWhereOperators()
+    {
+        $rows = $this->mapper->findAll($this->usersTable, ['age > 20']);
+        $this->assertCount(2, $rows);
+
+        $rows = $this->mapper->findAll($this->usersTable, ['age >= 30']);
+        $this->assertCount(2, $rows);
+
+        $rows = $this->mapper->findAll($this->usersTable, ['age BETWEEN 21 AND 39']);
+        $this->assertCount(1, $rows);
+
+        $rows = $this->mapper->findAll($this->usersTable, ["firstName LIKE 'J%'"]);
+        $this->assertCount(2, $rows);
+    }
+
     public function testFindAllWithoutWhere()
     {
-        $rows = $this->dataMapper->findAll($this->usersTable);
+        $rows = $this->mapper->findAll($this->usersTable);
 
         $this->assertInternalType('array', $rows);
 
@@ -102,9 +118,9 @@ class AtlasQueryAdapterTest extends TestCase
     {
         $where = ['firstName' => 'John'];
         $data = ['firstName' => 'Jane'];
-        $this->dataMapper->update($this->usersTable, $data, $where);
+        $this->mapper->update($this->usersTable, $data, $where);
 
-        $row = $this->dataMapper->findOne($this->usersTable, ['firstName' => 'Jane']);
+        $row = $this->mapper->findOne($this->usersTable, ['firstName' => 'Jane']);
 
         $this->assertEquals('Jane', $row['firstName']);
     }
@@ -112,9 +128,9 @@ class AtlasQueryAdapterTest extends TestCase
     public function testUpdateWithoutWhere()
     {
         $data = ['firstName' => 'Jane'];
-        $this->dataMapper->update($this->usersTable, $data);
+        $this->mapper->update($this->usersTable, $data);
 
-        $row = $this->dataMapper->findOne($this->usersTable, ['firstName' => 'Jane']);
+        $row = $this->mapper->findOne($this->usersTable, ['firstName' => 'Jane']);
 
         $this->assertEquals('Jane', $row['firstName']);
     }
@@ -122,18 +138,18 @@ class AtlasQueryAdapterTest extends TestCase
     public function testDeleteWithWhere()
     {
         $where = ['firstName' => 'Jane'];
-        $this->dataMapper->delete($this->usersTable, $where);
+        $this->mapper->delete($this->usersTable, $where);
 
-        $row = $this->dataMapper->findOne($this->usersTable, ['firstName' => 'Jane']);
+        $row = $this->mapper->findOne($this->usersTable, ['firstName' => 'Jane']);
 
         $this->assertEquals(null, $row);
     }
 
     public function testDeleteWithoutWhere()
     {
-        $this->dataMapper->delete($this->usersTable);
+        $this->mapper->delete($this->usersTable);
 
-        $row = $this->dataMapper->findAll($this->usersTable);
+        $row = $this->mapper->findAll($this->usersTable);
 
         $this->assertEquals([], $row);
     }
