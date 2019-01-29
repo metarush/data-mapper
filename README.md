@@ -10,20 +10,18 @@ A generic data mapper library that can act as a layer between database and repos
 
     <?php
 
-    use MetaRush\DataMapper\Adapters\AtlasQuery;
-    use MetaRush\DataMapper\DataMapper;
-
     // db info
-    $dsn = 'mysql:host=localhost;dbname=example';
+    $dsn = 'mysql:host=localhost;dbname=example'; // PDO DSN
 	$dbUser = 'example';
 	$dbPass = 'example';
     $table = 'example';
 
-    // current adapter is PDO (via AtlasQuery)
-    $adapter = new AtlasQuery($dsn, $dbUser, $dbPass);
+    $factory = (new \MetaRush\DataMapper\Factory())
+        ->setDsn($dsn)
+        ->setDbUser($dbUser)
+        ->setDbPass($dbPass);
 
-    // init data mapper
-    $dM = new DataMapper($adapter);
+    $dM = $factory->build();
 
 ### Create new row
 
