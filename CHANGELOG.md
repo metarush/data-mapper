@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.3
+
+- Allow null dbUser and dbPass
+- Add separate Config class
+
 ## 1.0.2
 
 - Add Factory class
