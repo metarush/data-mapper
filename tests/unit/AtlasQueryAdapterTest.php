@@ -2,7 +2,6 @@
 
 error_reporting(E_ALL);
 
-use MetaRush\DataMapper\Adapters\AtlasQuery;
 use MetaRush\DataMapper\DataMapper;
 use PHPUnit\Framework\TestCase;
 
@@ -35,8 +34,13 @@ class AtlasQueryAdapterTest extends TestCase
             )');
         }
 
-        $adapter = new AtlasQuery($dsn, null, null);
-        $this->mapper = new DataMapper($adapter);
+        //$adapter = new AtlasQuery($dsn, null, null);
+        //$this->mapper = new DataMapper($adapter);
+
+        $factory = (new \MetaRush\DataMapper\Factory())
+            ->setDsn($dsn);
+
+        $this->mapper = $factory->build();
 
         $this->seedTestData();
     }
