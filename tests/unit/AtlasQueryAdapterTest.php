@@ -38,7 +38,9 @@ class AtlasQueryAdapterTest extends TestCase
         //$this->mapper = new DataMapper($adapter);
 
         $factory = (new \MetaRush\DataMapper\Factory())
-            ->setDsn($dsn);
+            ->setDsn($dsn)
+            ->setDbUser(null)
+            ->setDbPass(null);
 
         $this->mapper = $factory->build();
 

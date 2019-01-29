@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.3
+
+- Allow null dbUser and dbPass
+
 ## 1.0.2
 
 - Add Factory class

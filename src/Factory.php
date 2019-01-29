@@ -48,7 +48,7 @@ class Factory
         return $this->dbUser;
     }
 
-    public function setDbUser(string $dbUser)
+    public function setDbUser(?string $dbUser)
     {
         $this->dbUser = $dbUser;
 
@@ -60,7 +60,7 @@ class Factory
         return $this->dbPass;
     }
 
-    public function setDbPass(string $dbPass)
+    public function setDbPass(?string $dbPass)
     {
         $this->dbPass = $dbPass;
 
