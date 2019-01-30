@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.4
+
+- Replace Factory class with Builder class
+- Update README
+
 ## 1.0.3
 
 - Allow null dbUser and dbPass

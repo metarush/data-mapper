@@ -1,8 +1,6 @@
 <?php
 
-error_reporting(E_ALL);
-
-use MetaRush\DataMapper\DataMapper;
+use MetaRush\DataMapper;
 use PHPUnit\Framework\TestCase;
 
 class AtlasQueryAdapterTest extends TestCase
@@ -34,15 +32,8 @@ class AtlasQueryAdapterTest extends TestCase
             )');
         }
 
-        //$adapter = new AtlasQuery($dsn, null, null);
-        //$this->mapper = new DataMapper($adapter);
-
-        $factory = (new \MetaRush\DataMapper\Factory())
-            ->setDsn($dsn)
-            ->setDbUser(null)
-            ->setDbPass(null);
-
-        $this->mapper = $factory->build();
+        $adapter = new DataMapper\Adapters\AtlasQuery($dsn, null, null);
+        $this->mapper = new DataMapper\DataMapper($adapter);
 
         $this->seedTestData();
     }
