@@ -10,18 +10,12 @@ A generic data mapper library that can act as a layer between database and repos
 
     <?php
 
-    // db info
-    $dsn = 'mysql:host=localhost;dbname=example'; // PDO DSN
-	$dbUser = 'example';
-	$dbPass = 'example';
-    $table = 'example';
+    $builder = (new \MetaRush\DataMapper\Builder)
+        ->setDsn('mysql:host=localhost;dbname=example') // PDO DSN
+        ->setDbUser('foo')
+        ->setDbPass('bar');
 
-    $factory = (new \MetaRush\DataMapper\Factory())
-        ->setDsn($dsn)
-        ->setDbUser($dbUser)
-        ->setDbPass($dbPass);
-
-    $dM = $factory->build();
+    $dM = $builder->build();
 
 ### Create new row
 
@@ -30,34 +24,34 @@ A generic data mapper library that can act as a layer between database and repos
         'col1' => 'foo',
         'col2' => 'bar'
     ];
-    $dM->create($table, $data);
+    $dM->create('table', $data);
 
 ### Find row
 
     // find 'foo' in column 'col'
-    $row = $dM->findOne($table, ['col' => 'foo']);
+    $row = $dM->findOne('table', ['col' => 'foo']);
     print_r($row);
 
 ### Find rows
 
     // find all rows
-    $rows = $dM->findAll($table);
+    $rows = $dM->findAll('table');
     print_r($rows);
 
     // find rows where column 'col' = 'foo'
-    $rows = $dM->findAll($table, ['col' => 'foo']);
+    $rows = $dM->findAll('table', ['col' => 'foo']);
     print_r($rows);
 
 ### Update rows
 
     $data = ['col1' => 'bar'];
     $where = ['col2' => 'foo'];
-    $dM->update($table, $data, $where);
+    $dM->update('table', $data, $where);
 
 ### Delete rows
 
     $where = ['col1' => 'foo'];
-    $dM->delete($table, $where);
+    $dM->delete('table', $where);
 
 ### Using `$where` clause
 

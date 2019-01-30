@@ -2,7 +2,7 @@
 
 namespace MetaRush\DataMapper;
 
-class Factory extends Config
+class Builder extends Config
 {
 
     public function build(): DataMapper
