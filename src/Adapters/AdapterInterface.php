@@ -31,7 +31,18 @@ interface AdapterInterface
      * @param string|null $orderBy Order by column
      * @return array
      */
-    public function findAll(string $table, ?array $where, ?string $orderBy): array;
+
+    /**
+     * Find all records in a table
+     *
+     * @param string $table Name of table to query
+     * @param array $where Column-value pair of the where clause
+     * @param string|null $orderBy Order by column
+     * @param int|null $limit Limit the number of records to return
+     * @param int|null $offset Skip records up to $offset
+     * @return array
+     */
+    public function findAll(string $table, ?array $where, ?string $orderBy, ?int $limit, ?int $offset): array;
 
     /**
      * Update record in a table

@@ -160,4 +160,15 @@ class AtlasQueryAdapterTest extends TestCase
         $rows = $this->mapper->findAll($this->usersTable, [], 'firstName');
         $this->assertEquals('Bar', $rows[0]['firstName']);
     }
+
+    public function testFindAllLimitAndOffset()
+    {
+        $rows = $this->mapper->findAll($this->usersTable, [], null, 2);
+        $this->assertCount(2, $rows);
+
+        $rows = $this->mapper->findAll($this->usersTable, [], null, 2, 2);
+
+        $this->assertCount(2, $rows);
+        $this->assertEquals('John', $rows[0]['firstName']);
+    }
 }

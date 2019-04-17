@@ -30,9 +30,9 @@ class DataMapper implements Adapters\AdapterInterface
     /**
      * @inheritDoc
      */
-    public function findAll(string $table, ?array $where = null, ?string $orderBy = null): array
+    public function findAll(string $table, ?array $where = null, ?string $orderBy = null, ?int $limit = null, ?int $offset = null): array
     {
-        return $this->adapter->findAll($table, $where, $orderBy);
+        return $this->adapter->findAll($table, $where, $orderBy, $limit, $offset);
     }
 
     /**

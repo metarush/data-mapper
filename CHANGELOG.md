@@ -2,7 +2,8 @@
 
 ## 1.1.0
 
-- Add $orderBy paramter in findAll() service method.
+- Add $orderBy parameter in findAll() service method.
+- Add $limit and $offset parameter in findAll() service method.
 
 ## 1.0.4
 
