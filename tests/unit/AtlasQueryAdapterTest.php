@@ -53,7 +53,8 @@ class AtlasQueryAdapterTest extends TestCase
         $data = [
             ['firstName' => 'Foo', 'lastName' => 'Bar', 'age' => 20],
             ['firstName' => 'Jane', 'lastName' => 'Doe', 'age' => 30],
-            ['firstName' => 'John', 'lastName' => 'Doe', 'age' => 40]
+            ['firstName' => 'John', 'lastName' => 'Doe', 'age' => 40],
+            ['firstName' => 'Bar', 'lastName' => 'Refaeli', 'age' => 25]
         ];
 
         foreach ($data as $v)
@@ -88,13 +89,13 @@ class AtlasQueryAdapterTest extends TestCase
     public function testFindAllUsingOtherWhereOperators()
     {
         $rows = $this->mapper->findAll($this->usersTable, ['age > 20']);
-        $this->assertCount(2, $rows);
+        $this->assertCount(3, $rows);
 
         $rows = $this->mapper->findAll($this->usersTable, ['age >= 30']);
         $this->assertCount(2, $rows);
 
         $rows = $this->mapper->findAll($this->usersTable, ['age BETWEEN 21 AND 39']);
-        $this->assertCount(1, $rows);
+        $this->assertCount(2, $rows);
 
         $rows = $this->mapper->findAll($this->usersTable, ["firstName LIKE 'J%'"]);
         $this->assertCount(2, $rows);
@@ -149,5 +150,25 @@ class AtlasQueryAdapterTest extends TestCase
         $row = $this->mapper->findAll($this->usersTable);
 
         $this->assertEquals([], $row);
+    }
+
+    public function testFindAllOrderBy()
+    {
+        $rows = $this->mapper->findAll($this->usersTable, [], 'age DESC');
+        $this->assertEquals(40, $rows[0]['age']);
+
+        $rows = $this->mapper->findAll($this->usersTable, [], 'firstName');
+        $this->assertEquals('Bar', $rows[0]['firstName']);
+    }
+
+    public function testFindAllLimitAndOffset()
+    {
+        $rows = $this->mapper->findAll($this->usersTable, [], null, 2);
+        $this->assertCount(2, $rows);
+
+        $rows = $this->mapper->findAll($this->usersTable, [], null, 2, 2);
+
+        $this->assertCount(2, $rows);
+        $this->assertEquals('John', $rows[0]['firstName']);
     }
 }

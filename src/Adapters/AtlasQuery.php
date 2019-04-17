@@ -41,13 +41,24 @@ class AtlasQuery implements AdapterInterface
     /**
      * @inheritDoc
      */
-    public function findAll(string $table, ?array $where = null): array
+    public function findAll(string $table, ?array $where = null, ?string $orderBy = null, ?int $limit = null, ?int $offset = null): array
     {
         $select = Select::new($this->pdo);
 
         $where = $where ?? [];
 
-        return $select->columns('*')->from($table)->whereEquals($where)->fetchAll();
+        $query = $select->columns('*')->from($table)->whereEquals($where);
+
+        if ($orderBy)
+            $query->orderBy($orderBy);
+
+        if ($limit)
+            $query->limit($limit);
+
+        if ($offset)
+            $query->offset($offset);
+
+        return $query->fetchAll();
     }
 
     /**
