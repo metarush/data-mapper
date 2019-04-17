@@ -27,10 +27,11 @@ interface AdapterInterface
      * Find all records in a table
      *
      * @param string $table Name of table to query
-     * @param array $where Column-value pair of the where clause
-     * @return array The records
+     * @param array|null $where Column-value pair of the where clause
+     * @param string|null $orderBy Order by column
+     * @return array
      */
-    public function findAll(string $table, ?array $where): array;
+    public function findAll(string $table, ?array $where, ?string $orderBy): array;
 
     /**
      * Update record in a table

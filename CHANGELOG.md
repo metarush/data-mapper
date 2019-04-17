@@ -1,19 +1,23 @@
 # CHANGELOG
 
+## 1.1.0
+
+- Add $orderBy paramter in findAll() service method.
+
 ## 1.0.4
 
-- Replace Factory class with Builder class
-- Update README
+- Replace Factory class with Builder class.
+- Update README.
 
 ## 1.0.3
 
-- Allow null dbUser and dbPass
-- Add separate Config class
+- Allow null dbUser and dbPass.
+- Add separate Config class.
 
 ## 1.0.2
 
-- Add Factory class
-- Update README
+- Add Factory class.
+- Update README.
 
 ## 1.0.1
 

@@ -1,8 +1,12 @@
 # metarush/data-mapper
 
-A generic data mapper library that can act as a layer between database and repositories/services.
+A generic data mapper (or data access layer) library that can act as a layer between database and repositories/services.
 
 ---
+
+## Install
+
+Install via composer as `metarush/data-mapper`
 
 ## Usage
 
@@ -40,6 +44,10 @@ A generic data mapper library that can act as a layer between database and repos
 
     // find rows where column 'col' = 'foo'
     $rows = $dM->findAll('table', ['col' => 'foo']);
+    print_r($rows);
+
+    // find rows where column 'col' = 'foo', order by col DESC
+    $rows = $dM->findAll('table', ['col' => 'foo'], 'col DESC');
     print_r($rows);
 
 ### Update rows
