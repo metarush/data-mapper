@@ -171,4 +171,39 @@ class AtlasQueryAdapterTest extends TestCase
         $this->assertCount(2, $rows);
         $this->assertEquals('John', $rows[0]['firstName']);
     }
+
+    public function testTransactions()
+    {
+        // test rollback
+        $this->mapper->beginTransaction();
+        $data = ['firstName' => 'Alice'];
+        $this->mapper->create($this->usersTable, $data);
+        $data = ['firstName' => 'Bob'];
+        $this->mapper->create($this->usersTable, $data);
+        $this->mapper->rollBack();
+
+        $where = ['firstName' => 'Alice'];
+        $rows = $this->mapper->findOne($this->usersTable, $where);
+        $this->assertNull($rows);
+
+        $where = ['firstName' => 'Bob'];
+        $rows = $this->mapper->findOne($this->usersTable, $where);
+        $this->assertNull($rows);
+
+        // test commit
+        $this->mapper->beginTransaction();
+        $data = ['firstName' => 'Alice'];
+        $this->mapper->create($this->usersTable, $data);
+        $data = ['firstName' => 'Bob'];
+        $this->mapper->create($this->usersTable, $data);
+        $this->mapper->commit();
+
+        $where = ['firstName' => 'Alice'];
+        $rows = $this->mapper->findOne($this->usersTable, $where);
+        $this->assertEquals('Alice', $rows['firstName']);
+
+        $where = ['firstName' => 'Bob'];
+        $rows = $this->mapper->findOne($this->usersTable, $where);
+        $this->assertEquals('Bob', $rows['firstName']);
+    }
 }

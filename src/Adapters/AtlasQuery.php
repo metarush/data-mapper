@@ -84,4 +84,28 @@ class AtlasQuery implements AdapterInterface
 
         $delete->from($table)->whereEquals($where)->perform();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function beginTransaction(): void
+    {
+        $this->pdo->beginTransaction();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function commit(): void
+    {
+        $this->pdo->commit();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function rollBack(): void
+    {
+        $this->pdo->rollBack();
+    }
 }

@@ -50,4 +50,28 @@ class DataMapper implements Adapters\AdapterInterface
     {
         $this->adapter->delete($table, $where);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function beginTransaction(): void
+    {
+        $this->adapter->beginTransaction();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function commit(): void
+    {
+        $this->adapter->commit();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function rollBack(): void
+    {
+        $this->adapter->rollBack();
+    }
 }

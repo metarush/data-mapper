@@ -62,4 +62,25 @@ interface AdapterInterface
      * @return void
      */
     public function delete(string $table, ?array $where): void;
+
+    /**
+     * Begin transaction
+     *
+     * @return void
+     */
+    public function beginTransaction(): void;
+
+    /**
+     * Commit transaction
+     *
+     * @return void
+     */
+    public function commit(): void;
+
+    /**
+     * Rollback transaction
+     *
+     * @return void
+     */
+    public function rollBack(): void;
 }
