@@ -1,31 +1,44 @@
 # CHANGELOG
 
-## 1.1.0
+## 1.2.0 - 2019-05-01
+
+### Added
+
+- Add transaction methods beginTransaction() commit() rollBack().
+
+## 1.1.0 - 2019-04-18
+
+### Added
 
 - Add $orderBy parameter in findAll() service method.
 - Add $limit and $offset parameter in findAll() service method.
 
-## 1.0.4
+## 1.0.4 - 2019-01-31
+
+### Changed
 
 - Replace Factory class with Builder class.
-- Update README.
+- Note this version should've been 2.0.0 due to change in functionality. Nonetheless, this was a quick update and no existing user would've been affected (no one's using this yet).
 
-## 1.0.3
+## 1.0.3 - 2019-01-30
+
+### Added
 
 - Allow null dbUser and dbPass.
 - Add separate Config class.
 
-## 1.0.2
+## 1.0.2 - 2019-01-30
+
+### Added
 
 - Add Factory class.
-- Update README.
 
-## 1.0.1
+## 1.0.1 - 2019-01-29
 
-- Update inline docs.
-- Update README.
+### Added
+
 - Add tests for WHERE clause.
 
-## 1.0.0
+## 1.0.0 - 2019-01-22
 
 - Release first version.
