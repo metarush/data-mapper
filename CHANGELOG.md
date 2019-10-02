@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.3.0 - 2019-10-03
+
+### Added
+
+- Add setStripMissingColumns() config method.
+- Add setTablesDefinition() config method.
+
 ## 1.2.0 - 2019-05-01
 
 ### Added

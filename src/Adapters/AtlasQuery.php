@@ -9,11 +9,14 @@ use Atlas\Query\Delete;
 
 class AtlasQuery implements AdapterInterface
 {
+    private $cfg;
     private $pdo;
 
-    public function __construct(string $dsn, ?string $dbUsername, ?string $dbPassword)
+    public function __construct(\MetaRush\DataMapper\Config $cfg)
     {
-        $this->pdo = new \PDO($dsn, $dbUsername, $dbPassword);
+        $this->cfg = $cfg;
+
+        $this->pdo = new \PDO($cfg->getDsn(), $cfg->getDbUser(), $cfg->getDbPass());
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
@@ -22,6 +25,9 @@ class AtlasQuery implements AdapterInterface
      */
     public function create(string $table, array $data): int
     {
+        if ($this->cfg->getStripMissingColumns())
+            $data = $this->getStrippedMissingColumns($table, $data);
+
         $insert = Insert::new($this->pdo);
         $insert->into($table)->columns($data)->perform();
 
@@ -66,6 +72,9 @@ class AtlasQuery implements AdapterInterface
      */
     public function update(string $table, array $data, ?array $where = null): void
     {
+        if ($this->cfg->getStripMissingColumns())
+            $data = $this->getStrippedMissingColumns($table, $data);
+
         $update = Update::new($this->pdo);
 
         $where = $where ?? [];
@@ -107,5 +116,23 @@ class AtlasQuery implements AdapterInterface
     public function rollBack(): void
     {
         $this->pdo->rollBack();
+    }
+
+    /**
+     * Strip missing columns in $data if they don't exist in Config::$tableDefinition
+     *
+     * @param string $table
+     * @param array $data
+     * @return array
+     */
+    protected function getStrippedMissingColumns(string $table, array $data): array
+    {
+        $tablesDefinition = $this->cfg->getTablesDefinition();
+
+        foreach ($data as $column => $v)
+            if (!\in_array($column, $tablesDefinition[$table]))
+                unset($data[$column]);
+
+        return $data;
     }
 }

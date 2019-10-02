@@ -115,6 +115,33 @@ $dM->commit();
 $dM->rollBack();
 ```
 
+### Optional config/builder methods
+
+```php
+->setStripMissingColumns(true);
+```
+
+If set to`true`,`create()`and `update()` methods will strip missing columns in their `$data`  parameter.
+
+```php
+->setTablesDefinition(array $tablesDefinition);
+```
+
+Required when using `setStripMissingColumns(true)`
+
+Example parameter for `$tablesDefinition`:
+
+```php
+$tablesDefinition = [
+    'UsersTable' => [ // table name
+        'id', 'firstName', 'lastName' // column names
+    ],
+    'PostsTable' => [ // table name
+        'id', 'subject', 'message' // columns names
+    ]
+];
+```
+
 ---
 
 ## Current adapters
