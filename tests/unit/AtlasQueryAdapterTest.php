@@ -18,7 +18,7 @@ class AtlasQueryAdapterTest extends TestCase
         $dsn = 'sqlite:' . $this->dbFile;
 
         // create test db if doesn't exist yet
-        if (!file_exists($this->dbFile)) {
+        if (!\file_exists($this->dbFile)) {
 
             $this->pdo = new \PDO($dsn);
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -32,7 +32,18 @@ class AtlasQueryAdapterTest extends TestCase
             )');
         }
 
-        $adapter = new DataMapper\Adapters\AtlasQuery($dsn, null, null);
+        $tablesDefinition = [
+            'Users' => [
+                'id', 'firstName', 'lastName', 'age'
+            ]
+        ];
+
+        $cfg = (new DataMapper\Config)
+            ->setDsn($dsn)
+            ->setTablesDefinition($tablesDefinition)
+            ->setStripMissingColumns(true);
+
+        $adapter = new DataMapper\Adapters\AtlasQuery($cfg);
         $this->mapper = new DataMapper\DataMapper($adapter);
 
         $this->seedTestData();
@@ -45,7 +56,7 @@ class AtlasQueryAdapterTest extends TestCase
         unset($this->pdo);
 
         if (file_exists($this->dbFile))
-            unlink($this->dbFile);
+            \unlink($this->dbFile);
     }
 
     public function seedTestData()
@@ -205,5 +216,36 @@ class AtlasQueryAdapterTest extends TestCase
         $where = ['firstName' => 'Bob'];
         $rows = $this->mapper->findOne($this->usersTable, $where);
         $this->assertEquals('Bob', $rows['firstName']);
+    }
+
+    public function testStripMissingColumnsCreateAndUpdate()
+    {
+        $data = [
+            'id'                => 9,
+            'firstName'         => 'Foo',
+            'lastName'          => 'Bar',
+            'age'               => 10,
+            'nonExistentColumn' => 'qux'
+        ];
+
+        $this->mapper->create($this->usersTable, $data);
+
+        $where = ['id' => 9];
+        $row = $this->mapper->findOne($this->usersTable, $where);
+        $this->assertEquals(10, $row['age']);
+
+        // ------------------------------------------------
+
+        $data = [
+            'age'                      => 11,
+            'anotherNonExistentColumn' => 'qux'
+        ];
+
+        $where = ['id' => 9];
+
+        $this->mapper->update($this->usersTable, $data, $where);
+
+        $row = $this->mapper->findOne($this->usersTable, $where);
+        $this->assertEquals(11, $row['age']);
     }
 }

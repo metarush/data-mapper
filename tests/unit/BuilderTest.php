@@ -15,6 +15,9 @@ class BuilderTest extends TestCase
     public function testBuilder()
     {
         $builder = (new DataMapper\Builder)
+            ->setAdapter('AtlasQuery') // not needed but included for unit test code coverage only
+            ->setDbUser('') // "
+            ->setDbPass('') // "
             ->setDsn('sqlite:' . $this->dbFile);
 
         $mapper = $builder->build();
@@ -25,6 +28,6 @@ class BuilderTest extends TestCase
     public function tearDown()
     {
         if (file_exists($this->dbFile))
-            unlink($this->dbFile);
+            \unlink($this->dbFile);
     }
 }

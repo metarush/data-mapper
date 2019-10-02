@@ -8,6 +8,8 @@ class Config
     private $dsn;
     private $dbUser;
     private $dbPass;
+    private $stripMissingColumns = false;
+    private $tablesDefinition;
 
     public function getAdapter(): string
     {
@@ -53,6 +55,30 @@ class Config
     public function setDbPass(?string $dbPass)
     {
         $this->dbPass = $dbPass;
+
+        return $this;
+    }
+
+    public function getStripMissingColumns(): bool
+    {
+        return $this->stripMissingColumns;
+    }
+
+    public function setStripMissingColumns(bool $stripMissingColumns)
+    {
+        $this->stripMissingColumns = $stripMissingColumns;
+
+        return $this;
+    }
+
+    public function getTablesDefinition(): array
+    {
+        return $this->tablesDefinition;
+    }
+
+    public function setTablesDefinition(array $tablesDefinition)
+    {
+        $this->tablesDefinition = $tablesDefinition;
 
         return $this;
     }
