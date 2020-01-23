@@ -124,10 +124,14 @@ class AtlasQuery implements AdapterInterface
      * @param string $table
      * @param array $data
      * @return array
+     * @throws \MetaRush\DataMapper\Exception
      */
     protected function getStrippedMissingColumns(string $table, array $data): array
     {
         $tablesDefinition = $this->cfg->getTablesDefinition();
+
+        if (!isset($tablesDefinition[$table]))
+            throw new \MetaRush\DataMapper\Exception('Table "' . $table . '" is not defined in your tables definition');
 
         foreach ($data as $column => $v)
             if (!\in_array($column, $tablesDefinition[$table]))
@@ -135,4 +139,5 @@ class AtlasQuery implements AdapterInterface
 
         return $data;
     }
+
 }
