@@ -248,4 +248,12 @@ class AtlasQueryAdapterTest extends TestCase
         $row = $this->mapper->findOne($this->usersTable, $where);
         $this->assertEquals(11, $row['age']);
     }
+
+    public function testStripMissingColumnsMissingTableInDefinition()
+    {
+        $this->expectExceptionMessageRegExp('/not defined in your tables definition/');
+
+        $this->mapper->create('nonExistentTable', []);
+    }
+
 }

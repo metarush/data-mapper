@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.3.1 - 2020-01-24
+
+### Added
+
+- Throw exception when a table is not defined in setTablesDefinition(), when using getStrippedMissingColumns() in AtlasQuery adapter.
+
 ## 1.3.0 - 2019-10-03
 
 ### Added
