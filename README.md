@@ -35,11 +35,19 @@ $data = [
 $dM->create('table', $data);
 ```
 
+### Find column
+
+```php
+// find value of column 'col2' where 'col1' == 'foo'
+$column = $dM->findColumn('table', ['col1' => 'foo'], 'col2');
+print_r($column); // bar
+```
+
 ### Find row
 
 ```php
-// find 'foo' in column 'col'
-$row = $dM->findOne('table', ['col' => 'foo']);
+// find row where column 'col1' == 'foo'
+$row = $dM->findOne('table', ['col1' => 'foo']);
 print_r($row);
 ```
 
@@ -50,16 +58,16 @@ print_r($row);
 $rows = $dM->findAll('table');
 print_r($rows);
 
-// find rows where column 'col' = 'foo'
-$rows = $dM->findAll('table', ['col' => 'foo']);
+// find rows where column 'col1' = 'foo'
+$rows = $dM->findAll('table', ['col1' => 'foo']);
 print_r($rows);
 
-// find rows where column 'col' = 'foo', order by col DESC
-$rows = $dM->findAll('table', ['col' => 'foo'], 'col DESC');
+// find rows where column 'col1' = 'foo', order by col1 DESC
+$rows = $dM->findAll('table', ['col1' => 'foo'], 'col1 DESC');
 print_r($rows);
 
-// find rows where column 'col' = 'foo', order by col DESC, limit 2, offset 3
-$rows = $dM->findAll('table', ['col' => 'foo'], 'col DESC', 2, 3);
+// find rows where column 'col1' = 'foo', order by col2 DESC, limit 2, offset 3
+$rows = $dM->findAll('table', ['col1' => 'foo'], 'col2 DESC', 2, 3);
 print_r($rows);
 ```
 

@@ -2,6 +2,7 @@
 
 namespace MetaRush\DataMapper\Adapters;
 
+use MetaRush\DataMapper\Config;
 use Atlas\Query\Insert;
 use Atlas\Query\Select;
 use Atlas\Query\Update;
@@ -9,10 +10,19 @@ use Atlas\Query\Delete;
 
 class AtlasQuery implements AdapterInterface
 {
+    /**
+     *
+     * @var Config
+     */
     private $cfg;
+
+    /**
+     *
+     * @var \PDO
+     */
     private $pdo;
 
-    public function __construct(\MetaRush\DataMapper\Config $cfg)
+    public function __construct(Config $cfg)
     {
         $this->cfg = $cfg;
 
@@ -32,6 +42,17 @@ class AtlasQuery implements AdapterInterface
         $insert->into($table)->columns($data)->perform();
 
         return $insert->getLastInsertId();
+    }
+
+    public function findColumn(string $table, array $where, string $column): ?string
+    {
+        $select = Select::new($this->pdo);
+
+        $row = $select->columns('*')->from($table)->whereEquals($where)->fetchOne();
+
+        $column = $row ? $row[$column] : null;
+
+        return $column;
     }
 
     /**
@@ -122,8 +143,8 @@ class AtlasQuery implements AdapterInterface
      * Strip missing columns in $data if they don't exist in Config::$tableDefinition
      *
      * @param string $table
-     * @param array $data
-     * @return array
+     * @param mixed[] $data
+     * @return mixed[]
      * @throws \MetaRush\DataMapper\Exception
      */
     protected function getStrippedMissingColumns(string $table, array $data): array
