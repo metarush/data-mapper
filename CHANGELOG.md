@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.4.0 - 2020-04-25
+
+### Added
+
+- Add findColumn() service method.
+- Add PHPStan and follow code suggestions from it.
+
 ## 1.3.1 - 2020-01-24
 
 ### Added

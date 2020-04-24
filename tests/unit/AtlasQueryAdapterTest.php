@@ -88,6 +88,16 @@ class AtlasQueryAdapterTest extends TestCase
         $this->assertEquals('Foo', $row['firstName']);
     }
 
+    public function testFindColumn()
+    {
+        $column = $this->mapper->findColumn($this->usersTable, ['firstName' => 'Bar'], 'lastName');
+        $this->assertEquals('Refaeli', $column);
+
+        $column = $this->mapper->findColumn($this->usersTable, ['firstName' => 'Jane'], 'age');
+
+        $this->assertEquals(30, $column);
+    }
+
     public function testFindAllWithWhere()
     {
         $rows = $this->mapper->findAll($this->usersTable, ['firstName' => 'John']);

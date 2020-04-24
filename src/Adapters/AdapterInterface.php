@@ -4,22 +4,31 @@ namespace MetaRush\DataMapper\Adapters;
 
 interface AdapterInterface
 {
-
     /**
      * Creates new record in a table
      *
      * @param string $table Name of table to insert to
-     * @param array $data Column-value pair of the data to insert
+     * @param mixed[] $data Column-value pair of the data to insert
      * @return int The last insert id
      */
     public function create(string $table, array $data): int;
 
     /**
+     * Find column value in a table
+     *
+     * @param string $table
+     * @param mixed[] $where
+     * @param string $column
+     * @return string|null
+     */
+    public function findColumn(string $table, array $where, string $column): ?string;
+    
+    /**
      * Find record in a table
      *
      * @param string $table Name of table to query
-     * @param array $where Column-value pair of the where clause
-     * @return array|null The record
+     * @param mixed[] $where Column-value pair of the where clause
+     * @return mixed[]|null The record
      */
     public function findOne(string $table, array $where): ?array;
 
@@ -27,20 +36,11 @@ interface AdapterInterface
      * Find all records in a table
      *
      * @param string $table Name of table to query
-     * @param array|null $where Column-value pair of the where clause
-     * @param string|null $orderBy Order by column
-     * @return array
-     */
-
-    /**
-     * Find all records in a table
-     *
-     * @param string $table Name of table to query
-     * @param array $where Column-value pair of the where clause
+     * @param mixed[] $where Column-value pair of the where clause
      * @param string|null $orderBy Order by column
      * @param int|null $limit Limit the number of records to return
      * @param int|null $offset Skip records up to $offset
-     * @return array
+     * @return mixed[]
      */
     public function findAll(string $table, ?array $where, ?string $orderBy, ?int $limit, ?int $offset): array;
 
@@ -48,8 +48,8 @@ interface AdapterInterface
      * Update record in a table
      *
      * @param string $table Name of table to update
-     * @param array $data Data to be updated
-     * @param array $where Column-value pair of the where clause
+     * @param mixed[] $data Data to be updated
+     * @param mixed[] $where Column-value pair of the where clause
      * @return void
      */
     public function update(string $table, array $data, ?array $where): void;
@@ -58,7 +58,7 @@ interface AdapterInterface
      * Delete record in a table
      *
      * @param string $table Name of table where a record will be deleted
-     * @param array $where Column-value pair of the where clause
+     * @param mixed[] $where Column-value pair of the where clause
      * @return void
      */
     public function delete(string $table, ?array $where): void;

@@ -4,6 +4,10 @@ namespace MetaRush\DataMapper;
 
 class DataMapper implements Adapters\AdapterInterface
 {
+    /**
+     *
+     * @var Adapters\AdapterInterface
+     */
     private $adapter;
 
     public function __construct(Adapters\AdapterInterface $adapter)
@@ -17,6 +21,11 @@ class DataMapper implements Adapters\AdapterInterface
     public function create(string $table, array $data): int
     {
         return $this->adapter->create($table, $data);
+    }
+
+    public function findColumn(string $table, array $where, string $column): ?string
+    {
+        return $this->adapter->findColumn($table, $where, $column);
     }
 
     /**
@@ -74,4 +83,5 @@ class DataMapper implements Adapters\AdapterInterface
     {
         $this->adapter->rollBack();
     }
+
 }
