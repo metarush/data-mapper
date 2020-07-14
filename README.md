@@ -69,6 +69,11 @@ print_r($rows);
 // find rows where column 'col1' = 'foo', order by col2 DESC, limit 2, offset 3
 $rows = $dM->findAll('table', ['col1' => 'foo'], 'col2 DESC', 2, 3);
 print_r($rows);
+
+// find rows grouped by column 'col1'
+$dM->groupBy('col1');
+$rows = $dM->findAll('table');
+print_r($rows);
 ```
 
 ### Update rows

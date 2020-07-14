@@ -22,6 +22,12 @@ class AtlasQuery implements AdapterInterface
      */
     private $pdo;
 
+    /**
+     *
+     * @var string|null
+     */
+    private $groupByColumn;
+
     public function __construct(Config $cfg)
     {
         $this->cfg = $cfg;
@@ -75,6 +81,11 @@ class AtlasQuery implements AdapterInterface
         $where = $where ?? [];
 
         $query = $select->columns('*')->from($table)->whereEquals($where);
+
+        if ($this->groupByColumn) {
+            $query->groupBy($this->groupByColumn);
+            $this->groupByColumn = null;
+        }
 
         if ($orderBy)
             $query->orderBy($orderBy);
@@ -159,6 +170,14 @@ class AtlasQuery implements AdapterInterface
                 unset($data[$column]);
 
         return $data;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function groupBy(string $column): void
+    {
+        $this->groupByColumn = $column;
     }
 
 }
