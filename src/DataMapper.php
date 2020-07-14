@@ -23,6 +23,9 @@ class DataMapper implements Adapters\AdapterInterface
         return $this->adapter->create($table, $data);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findColumn(string $table, array $where, string $column): ?string
     {
         return $this->adapter->findColumn($table, $where, $column);
@@ -82,6 +85,14 @@ class DataMapper implements Adapters\AdapterInterface
     public function rollBack(): void
     {
         $this->adapter->rollBack();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function groupBy(string $column): void
+    {
+        $this->adapter->groupBy($column);
     }
 
 }

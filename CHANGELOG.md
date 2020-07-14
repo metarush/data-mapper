@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.5.0 - 2020-07-14
+
+### Added
+
+- Add groupBy() service method.
+
 ## 1.4.0 - 2020-04-25
 
 ### Added

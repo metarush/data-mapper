@@ -266,4 +266,12 @@ class AtlasQueryAdapterTest extends TestCase
         $this->mapper->create('nonExistentTable', []);
     }
 
+    public function testFindAllWithGroupBy()
+    {
+        $this->mapper->groupBy('lastName');
+        $rows = $this->mapper->findAll($this->usersTable);
+
+        $this->assertCount(3, $rows);
+    }
+
 }

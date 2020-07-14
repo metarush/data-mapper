@@ -22,7 +22,7 @@ interface AdapterInterface
      * @return string|null
      */
     public function findColumn(string $table, array $where, string $column): ?string;
-    
+
     /**
      * Find record in a table
      *
@@ -83,4 +83,12 @@ interface AdapterInterface
      * @return void
      */
     public function rollBack(): void;
+
+    /**
+     * Set GROUP BY clause that will be used by findAll()
+     *
+     * @param string $column
+     * @return void
+     */
+    public function groupBy(string $column): void;
 }
