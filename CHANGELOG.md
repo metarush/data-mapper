@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.6.1 - 2021-01-09
+
+### Fixed
+
+- Make 2nd param of query() service method optional.
+
 ## 1.6.0 - 2021-01-09
 
 ### Added

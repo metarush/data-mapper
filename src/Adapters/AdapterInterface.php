@@ -99,5 +99,5 @@ interface AdapterInterface
      * @param mixed[] $bindParams
      * @return mixed[]
      */
-    public function query (string $preparedStatement, ?array $bindParams): array;
+    public function query (string $preparedStatement, ?array $bindParams = null): array;
 }

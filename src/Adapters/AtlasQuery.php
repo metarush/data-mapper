@@ -184,7 +184,7 @@ class AtlasQuery implements AdapterInterface
     /**
      * @inheritDoc
      */
-    public function query(string $preparedStatement, ?array $bindParams): array
+    public function query(string $preparedStatement, ?array $bindParams = null): array
     {
         $stmt = $this->pdo->prepare($preparedStatement);
         $stmt->execute($bindParams);
