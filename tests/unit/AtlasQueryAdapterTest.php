@@ -274,4 +274,16 @@ class AtlasQueryAdapterTest extends TestCase
         $this->assertCount(3, $rows);
     }
 
+    public function testQueryWithCustomSql()
+    {
+        $preparedStatement = 'SELECT * FROM ' . $this->usersTable . ' WHERE age < ?';
+        $bindParams = [30];
+        $rows = $this->mapper->query($preparedStatement, $bindParams);
+
+        $this->assertCount(2, $rows);
+
+        $this->assertEquals('Foo', $rows[0]['firstName']);
+        $this->assertEquals('Bar', $rows[1]['firstName']);
+    }
+
 }
