@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.6.0 - 2021-01-09
+
+### Added
+
+- Add query() service method for custom queries.
+
 ## 1.5.0 - 2020-07-14
 
 ### Added

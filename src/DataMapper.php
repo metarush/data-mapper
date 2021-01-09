@@ -95,4 +95,12 @@ class DataMapper implements Adapters\AdapterInterface
         $this->adapter->groupBy($column);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function query(string $preparedStatement, ?array $bindParams): array
+    {
+        return $this->adapter->query($preparedStatement, $bindParams);
+    }
+
 }

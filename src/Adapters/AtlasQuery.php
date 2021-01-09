@@ -3,6 +3,7 @@
 namespace MetaRush\DataMapper\Adapters;
 
 use MetaRush\DataMapper\Config;
+use MetaRush\DataMapper\Exception;
 use Atlas\Query\Insert;
 use Atlas\Query\Select;
 use Atlas\Query\Update;
@@ -163,7 +164,7 @@ class AtlasQuery implements AdapterInterface
         $tablesDefinition = $this->cfg->getTablesDefinition();
 
         if (!isset($tablesDefinition[$table]))
-            throw new \MetaRush\DataMapper\Exception('Table "' . $table . '" is not defined in your tables definition');
+            throw new Exception('Table "' . $table . '" is not defined in your tables definition');
 
         foreach ($data as $column => $v)
             if (!\in_array($column, $tablesDefinition[$table]))
@@ -178,6 +179,17 @@ class AtlasQuery implements AdapterInterface
     public function groupBy(string $column): void
     {
         $this->groupByColumn = $column;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function query(string $preparedStatement, ?array $bindParams): array
+    {
+        $stmt = $this->pdo->prepare($preparedStatement);
+        $stmt->execute($bindParams);
+
+        return (array) $stmt->fetchAll();
     }
 
 }

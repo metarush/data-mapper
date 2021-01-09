@@ -128,6 +128,17 @@ $dM->commit();
 $dM->rollBack();
 ```
 
+### Custom SQL query
+
+You can use prepared statements with placeholders or named parameters
+
+```php
+$preparedStatement = 'SELECT * FROM table WHERE x = ? AND y = ?';
+$bindParams = ['foo', 'bar'];
+$rows = $dM->query($preparedStatement, $bindParams);
+print_r($rows);
+```
+
 ### Optional config/builder methods
 
 ```php

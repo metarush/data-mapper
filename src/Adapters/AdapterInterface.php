@@ -91,4 +91,13 @@ interface AdapterInterface
      * @return void
      */
     public function groupBy(string $column): void;
+
+    /**
+     * Custom SQL query
+     *
+     * @param string $preparedStatement
+     * @param mixed[] $bindParams
+     * @return mixed[]
+     */
+    public function query (string $preparedStatement, ?array $bindParams): array;
 }
