@@ -97,7 +97,8 @@ interface AdapterInterface
      *
      * @param string $preparedStatement
      * @param mixed[] $bindParams
+     * @param int|null $fetchStyle see fetch_style param in https://www.php.net/manual/en/pdostatement.fetch.php
      * @return mixed[]
      */
-    public function query (string $preparedStatement, ?array $bindParams = null): array;
+    public function query (string $preparedStatement, ?array $bindParams = null, ?int $fetchStyle = null): array;
 }
