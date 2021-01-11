@@ -98,9 +98,9 @@ class DataMapper implements Adapters\AdapterInterface
     /**
      * @inheritDoc
      */
-    public function query(string $preparedStatement, ?array $bindParams = null): array
+    public function query(string $preparedStatement, ?array $bindParams = null, ?int $fetchStyle = null): array
     {
-        return $this->adapter->query($preparedStatement, $bindParams);
+        return $this->adapter->query($preparedStatement, $bindParams, $fetchStyle);
     }
 
 }

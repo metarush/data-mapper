@@ -184,12 +184,14 @@ class AtlasQuery implements AdapterInterface
     /**
      * @inheritDoc
      */
-    public function query(string $preparedStatement, ?array $bindParams = null): array
+    public function query(string $preparedStatement, ?array $bindParams = null, ?int $fetchStyle = null): array
     {
         $stmt = $this->pdo->prepare($preparedStatement);
         $stmt->execute($bindParams);
 
-        return (array) $stmt->fetchAll();
+        $fetchStyle = $fetchStyle ? $fetchStyle : \PDO::FETCH_BOTH;
+
+        return (array) $stmt->fetchAll($fetchStyle);
     }
 
 }

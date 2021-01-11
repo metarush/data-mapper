@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.6.2 - 2021-01-11
+
+### Added
+
+- Add $fetchStyle param in query() service method.
+
 ## 1.6.1 - 2021-01-09
 
 ### Fixed
