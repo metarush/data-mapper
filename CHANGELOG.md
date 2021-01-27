@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.7.0 - 2021-01-27
+
+### Added
+
+- Add exec() service method for custom statements (INSERT/DELETE/UPDATE).
+
 ## 1.6.2 - 2021-01-11
 
 ### Added
@@ -16,7 +22,7 @@
 
 ### Added
 
-- Add query() service method for custom queries.
+- Add query() service method for custom queries (SELECT).
 
 ## 1.5.0 - 2020-07-14
 

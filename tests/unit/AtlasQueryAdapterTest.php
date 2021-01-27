@@ -286,4 +286,40 @@ class AtlasQueryAdapterTest extends TestCase
         $this->assertEquals('Bar', $rows[1]['firstName']);
     }
 
+    public function testExecWithSingleInsert()
+    {
+        $preparedStatement = "INSERT INTO $this->usersTable (firstName, lastName, age) VALUES (?, ?, ?)";
+        $bindParams = ['Mark', 'Calaway', '31'];
+        $numRows = $this->mapper->exec($preparedStatement, $bindParams);
+
+        $this->assertEquals(1, $numRows);
+    }
+
+    public function testExecWithMultipleInsert()
+    {
+        $preparedStatement = "INSERT INTO $this->usersTable (firstName, lastName, age) VALUES (?, ?, ?), (?, ?, ?)";
+        $bindParams = ['Mark', 'Calaway', null, 'Dwayne', 'Johnson', '32'];
+        $numRows = $this->mapper->exec($preparedStatement, $bindParams);
+
+        $this->assertEquals(2, $numRows);
+    }
+
+    public function testExecWithUpdate()
+    {
+        $preparedStatement = "UPDATE $this->usersTable SET age = ? WHERE lastName = 'Doe'";
+        $bindParams = ['18'];
+        $numRows = $this->mapper->exec($preparedStatement, $bindParams);
+
+        $this->assertEquals(2, $numRows);
+    }
+
+    public function testExecWithDelete()
+    {
+        $preparedStatement = "DELETE FROM $this->usersTable WHERE lastName = ?";
+        $bindParams = ['Doe'];
+        $numRows = $this->mapper->exec($preparedStatement, $bindParams);
+
+        $this->assertEquals(2, $numRows);
+    }
+
 }
