@@ -40,7 +40,7 @@ $dM->create('table', $data);
 ```php
 // find value of column 'col2' where 'col1' == 'foo'
 $column = $dM->findColumn('table', ['col1' => 'foo'], 'col2');
-print_r($column); // bar
+\print_r($column); // bar
 ```
 
 ### Find row
@@ -48,7 +48,7 @@ print_r($column); // bar
 ```php
 // find row where column 'col1' == 'foo'
 $row = $dM->findOne('table', ['col1' => 'foo']);
-print_r($row);
+\print_r($row);
 ```
 
 ### Find rows
@@ -56,24 +56,24 @@ print_r($row);
 ```php
 // find all rows
 $rows = $dM->findAll('table');
-print_r($rows);
+\print_r($rows);
 
 // find rows where column 'col1' = 'foo'
 $rows = $dM->findAll('table', ['col1' => 'foo']);
-print_r($rows);
+\print_r($rows);
 
 // find rows where column 'col1' = 'foo', order by col1 DESC
 $rows = $dM->findAll('table', ['col1' => 'foo'], 'col1 DESC');
-print_r($rows);
+\print_r($rows);
 
 // find rows where column 'col1' = 'foo', order by col2 DESC, limit 2, offset 3
 $rows = $dM->findAll('table', ['col1' => 'foo'], 'col2 DESC', 2, 3);
-print_r($rows);
+\print_r($rows);
 
 // find rows grouped by column 'col1'
 $dM->groupBy('col1');
 $rows = $dM->findAll('table');
-print_r($rows);
+\print_r($rows);
 ```
 
 ### Update rows
@@ -132,11 +132,46 @@ $dM->rollBack();
 
 You can use prepared statements with placeholders or named parameters
 
+#### SELECT
+
 ```php
 $preparedStatement = 'SELECT * FROM table WHERE x = ? AND y = ?';
 $bindParams = ['foo', 'bar'];
-$rows = $dM->query($preparedStatement, $bindParams);
-print_r($rows);
+$fetchStyle = \PDO::FETCH_BOTH; // See https://www.php.net/manual/en/pdostatement.fetch.php for options. Default: \PDO::FETCH_BOTH
+$rows = $dM->query($preparedStatement, $bindParams, $fetchStyle);
+\print_r($rows);
+```
+
+#### Single INSERT
+
+```php
+$preparedStatement = "INSERT INTO table (firstName, lastName, age) VALUES (?, ?, ?)";
+$bindParams = ['Mark', 'Calaway', '18'];
+$numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams); // returns 1
+```
+
+#### Multiple INSERT in one statement
+
+```php
+$preparedStatement = "INSERT INTO table (firstName, lastName, age) VALUES (?, ?, ?), (?, ?, ?)";
+$bindParams = ['Mark', 'Calaway', '18', 'Dwayne', 'Johnson', '17'];
+$numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams); // returns 2
+```
+
+#### UPDATE
+
+```php
+$preparedStatement = "UPDATE table SET age = ? WHERE lastName = 'Doe'";
+$bindParams = ['18'];
+$numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams);
+```
+
+#### DELETE:
+
+```php
+$preparedStatement = "DELETE FROM table WHERE lastName = ?";
+$bindParams = ['Doe'];
+$numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams);
 ```
 
 ### Optional config/builder methods

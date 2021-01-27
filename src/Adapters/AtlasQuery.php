@@ -194,4 +194,15 @@ class AtlasQuery implements AdapterInterface
         return (array) $stmt->fetchAll($fetchStyle);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function exec(string $preparedStatement, ?array $bindParams = null): int
+    {
+        $stmt = $this->pdo->prepare($preparedStatement);
+        $stmt->execute($bindParams);
+
+        return $stmt->rowCount();
+    }
+
 }

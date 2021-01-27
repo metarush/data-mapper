@@ -101,4 +101,13 @@ interface AdapterInterface
      * @return mixed[]
      */
     public function query (string $preparedStatement, ?array $bindParams = null, ?int $fetchStyle = null): array;
+
+    /**
+     *
+     * @param string $preparedStatement
+     * @param mixed[] $bindParams
+     * @return int
+     */
+    public function exec(string $preparedStatement, ?array $bindParams = null): int;
+
 }
