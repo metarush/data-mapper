@@ -110,4 +110,6 @@ interface AdapterInterface
      */
     public function exec(string $preparedStatement, ?array $bindParams = null): int;
 
+
+    public function getLastInsertId(): int;
 }

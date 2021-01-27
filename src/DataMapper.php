@@ -110,4 +110,12 @@ class DataMapper implements Adapters\AdapterInterface
     {
         return $this->adapter->exec($preparedStatement, $bindParams);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLastInsertId(): int
+    {
+        return $this->adapter->getLastInsertId();
+    }
 }

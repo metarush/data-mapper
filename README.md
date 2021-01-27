@@ -32,7 +32,7 @@ $data = [
     'col1' => 'foo',
     'col2' => 'bar'
 ];
-$dM->create('table', $data);
+$lastInsertId = $dM->create('table', $data);
 ```
 
 ### Find column
@@ -148,6 +148,7 @@ $rows = $dM->query($preparedStatement, $bindParams, $fetchStyle);
 $preparedStatement = "INSERT INTO table (firstName, lastName, age) VALUES (?, ?, ?)";
 $bindParams = ['Mark', 'Calaway', '18'];
 $numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams); // returns 1
+$lastInsertID = $dM->getLastInsertId();
 ```
 
 #### Multiple INSERT in one statement
@@ -156,8 +157,8 @@ $numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams); // returns 1
 $preparedStatement = "INSERT INTO table (firstName, lastName, age) VALUES (?, ?, ?), (?, ?, ?)";
 $bindParams = ['Mark', 'Calaway', '18', 'Dwayne', 'Johnson', '17'];
 $numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams); // returns 2
+$lastInsertID = $dM->getLastInsertId();
 ```
-
 #### UPDATE
 
 ```php
@@ -166,7 +167,7 @@ $bindParams = ['18'];
 $numberOfAffectedRows = $dM->exec($preparedStatement, $bindParams);
 ```
 
-#### DELETE:
+#### DELETE
 
 ```php
 $preparedStatement = "DELETE FROM table WHERE lastName = ?";
