@@ -205,4 +205,12 @@ class AtlasQuery implements AdapterInterface
         return $stmt->rowCount();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getLastInsertId(): int
+    {
+        return $this->pdo->lastInsertId();
+    }
+
 }

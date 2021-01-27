@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.7.1 - 2021-01-27
+
+### Added
+
+- Add getLastInsertId() service method.
+
 ## 1.7.0 - 2021-01-27
 
 ### Added

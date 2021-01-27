@@ -77,6 +77,10 @@ class AtlasQueryAdapterTest extends TestCase
         $insertId = $this->mapper->create($this->usersTable, ['firstName' => 'Quz', 'lastName' => 'Test']);
 
         $this->assertInternalType('integer', $insertId);
+
+        $this->assertEquals(5, $insertId);
+
+        $this->assertEquals(5, $this->mapper->getLastInsertId());
     }
 
     public function testFindOne()
@@ -302,6 +306,11 @@ class AtlasQueryAdapterTest extends TestCase
         $numRows = $this->mapper->exec($preparedStatement, $bindParams);
 
         $this->assertEquals(2, $numRows);
+
+        // ------------------------------------------------
+
+        /* also test getLastInsertId() */
+        $this->assertEquals(6, $this->mapper->getLastInsertId());
     }
 
     public function testExecWithUpdate()
