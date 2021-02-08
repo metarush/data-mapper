@@ -33,8 +33,12 @@ class AtlasQuery implements AdapterInterface
     {
         $this->cfg = $cfg;
 
-        $this->pdo = new \PDO($cfg->getDsn(), $cfg->getDbUser(), $cfg->getDbPass());
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        try {
+            $this->pdo = new \PDO($cfg->getDsn(), $cfg->getDbUser(), $cfg->getDbPass());
+            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        } catch (\PDOException $ex) { // catch to suppress potential password leak from PDO strack trace
+            throw new \PDOException($ex->getMessage(), $ex->getCode()); // note: using "throw $ex" is glitchy, better to use "throw new"
+        }
     }
 
     /**
