@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.7.2 - 2021-02-08
+
+### Fixed
+
+- Catch and rethrow \PDOException to suppress potential password leak from PDO strack trace.
+
 ## 1.7.1 - 2021-01-27
 
 ### Added
