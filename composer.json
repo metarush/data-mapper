@@ -1,7 +1,7 @@
 {
     "name": "metarush/data-mapper",
     "type": "library",
-    "description": "A generic data mapper library that can act as a layer between database and repositories/services.",
+    "description": "A generic data access layer for basic CRUD operations. Can act as a layer between database and repositories/services.",
     "keywords": [
         "php",
         "data mapper",
@@ -22,7 +22,7 @@
     "require": {
         "php": ">=7.1",
         "atlas/query": "^1.2",
-        "phpstan/phpstan": "^0.12"
+        "phpstan/phpstan": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"
