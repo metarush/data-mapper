@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.7.3 - 2022-06-03
+
+### Changed
+
+- Update phpstan/phpstan to ^1.0
+
 ## 1.7.2 - 2021-02-08
 
 ### Fixed

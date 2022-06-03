@@ -171,7 +171,7 @@ class AtlasQuery implements AdapterInterface
             throw new Exception('Table "' . $table . '" is not defined in your tables definition');
 
         foreach ($data as $column => $v)
-            if (!\in_array($column, $tablesDefinition[$table]))
+            if (!\in_array($column, (array) $tablesDefinition[$table]))
                 unset($data[$column]);
 
         return $data;
@@ -214,7 +214,7 @@ class AtlasQuery implements AdapterInterface
      */
     public function getLastInsertId(): int
     {
-        return $this->pdo->lastInsertId();
+        return (int) $this->pdo->lastInsertId();
     }
 
 }
